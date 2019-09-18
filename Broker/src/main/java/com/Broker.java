@@ -24,7 +24,7 @@ public class Broker{
             if (key.isConnectable()) {
                 boolean connected = processConnect(key);
                 if (!connected) {
-                    return true; // Exit
+                    return true;
                 }
             }
             if (key.isReadable()) {
@@ -41,7 +41,7 @@ public class Broker{
                 String msg = userInputReader.readLine();
 
                 if (msg.equalsIgnoreCase("bye")) {
-                    return true; // Exit
+                    return true;
                 }
                 SocketChannel sChannel = (SocketChannel) key.channel();
                 ByteBuffer buffer = ByteBuffer.wrap(msg.getBytes());
@@ -50,7 +50,7 @@ public class Broker{
                 sChannel.register(key.selector(), SelectionKey.OP_READ);
             }
         }
-        return false; // Not done yet
+        return false;
     }
     public static boolean processConnect(SelectionKey key) throws Exception{
         SocketChannel channel = (SocketChannel) key.channel();
