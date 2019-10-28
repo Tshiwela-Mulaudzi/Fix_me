@@ -19,10 +19,11 @@ public class Broker{
 
     public static boolean processReadySet(Set readySet) throws Exception {
         Iterator iterator = readySet.iterator();
-        while (iterator.hasNext()) {
-            SelectionKey key = (SelectionKey)
-                    iterator.next();
-            iterator.remove();
+        while (iterator.hasNext()) 
+        {
+             SelectionKey key = (SelectionKey)
+                     iterator.next();
+             iterator.remove();
             if (key.isConnectable()) {
                 boolean connected = processConnect(key);
                 if (!connected) {
@@ -31,14 +32,16 @@ public class Broker{
             }
             if (key.isReadable()) {
                 String msg = processRead(key);
-                if (msg.length() > 0){
+                if (msg.length() > 0)
+                {
                     System.out.println("[Server]: " + msg);
                     SocketChannel sChannel = (SocketChannel) key.channel();
                     sChannel.register(key.selector(), SelectionKey.OP_WRITE);
                 }
 
             }
-            if (key.isWritable()) {
+            if (key.isWritable()) 
+            {
                 System.out.print("Please enter a message(Bye to quit):");
                 String msg = userInputReader.readLine();
 
@@ -76,8 +79,7 @@ public class Broker{
     public static void main(String[] args) throws Exception {
         InetAddress serverIPAddress = InetAddress.getByName("localhost");
         int port = 5000;
-        InetSocketAddress serverAddress = new InetSocketAddress(
-                serverIPAddress, port);
+        InetSocketAddress serverAddress = new InetSocketAddress(serverIPAddress, port);
         Selector selector = Selector.open();
         SocketChannel channel = SocketChannel.open();
         channel.configureBlocking(false);
